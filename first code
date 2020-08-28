@@ -1,0 +1,12 @@
+def sign(n):
+ if n>0:
+  return 1
+ else:
+  return 0
+a=input('a?\n')
+a=int(a)
+b=input('b?\n')
+b=int(b)
+if sign(a)=sign(b):
+  print('produit positif')
+else: print('produit négatif')    
