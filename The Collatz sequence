@@ -1,0 +1,35 @@
+print('Please type an integer.')
+
+def collatz(number):
+  if number %2 ==0:
+     return number//2
+  else:
+     return 3*number+1
+
+try:
+
+ a=int(input())
+
+ 
+ 
+ while collatz(a)  != 1:
+   print(collatz(a))
+   a=collatz(a)
+
+ if collatz(a)==1:
+   print(collatz(a))
+   print('The end of the Collatz sequence')
+
+except ValueError or NameError:
+ print('Please type an INTEGER.')
+ a=int(input())
+
+
+ 
+ while collatz(a)  != 1:
+   print(collatz(a))
+   a=collatz(a)
+
+ if collatz(a)==1:
+   print(collatz(a))
+   print('The end of the Collatz sequence')
