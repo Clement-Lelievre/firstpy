@@ -1,0 +1,91 @@
+# 2ème jour de Python: une forme de jeu de Nim
+import random
+import sys
+import time
+count=100
+comp_round=0
+print('welcome to this game. Let us start from 100 and substract alternatively an integer between 1 and 9. The first player reaching exactly 0 loses!')
+print('First let us decide who starts...')
+time.sleep(2)
+a=random.randint(0,1)
+if a==0:
+  print('I go first!')
+  comp_move=9
+  count=count-comp_move
+  comp_round=comp_round+1
+  print('I picked',comp_move,'we are now at', count,'and it is your turn')
+ 
+  while count>0:
+   user_move=input()
+   while int(user_move)<1 or int(user_move)>9:
+     print('you need to pick an integer from 1 to 9 and make sure that the game does not fall under 0')
+     user_move=int(input())
+   while count-int(user_move)<0:
+     print('game cannot go below 0') #ceci sert qd on arrive à la dernière dizaine, pour ne pas tomber sous 0
+     user_move=int(input())
+
+   count=count-int(user_move)
+   if count==0:
+     print('you lose!')
+     sys.exit()
+   print('OK, we currently are at',count)
+   
+   if count==1:
+     comp_move==1
+   else:
+      comp_move=count-(91-10*(int(comp_round)))
+   comp_round=comp_round+1
+   count=count-comp_move
+   
+   print('I picked',comp_move,'we are now at', count)
+   if count==0:
+     print('I lose!')
+     sys.exit()
+
+  print('we reached 0 so the game is over')
+
+else:
+  print('Please start!: enter your number')
+  user_move=input()
+  while int(user_move)<1 or int(user_move)>9:
+    print('you need to pick an integer from 1 to 9')
+    user_move=int(input())
+   
+  count=count-int(user_move)
+
+  print('OK, we currently are at',count,'and it is now my turn')  
+
+  while count>0:
+   if count==1 :
+     comp_move=1
+   elif comp_round==0 and count != 91:
+     comp_move=count-91
+   elif count-10*(count//10) != 1:
+     comp_move=count-(91-10*(int(comp_round+1))) #le user n'a pas bien joué et désormais le PC a repris la main et va gagner!
+     comp_round=comp_round+1
+   else:
+     comp_move=random.randint(1,min(count,9)) #le PC n'a pas mieux à faire que jouer au hasard car le user a joué le bon coup
+     comp_round=comp_round+1
+   
+   count=int(count)-int(comp_move)
+   print('I picked',comp_move,'we are now at', count)
+   if count==0:
+     print('I lost, well done.')
+     sys.exit()
+   
+   user_move=int(input())
+   
+   while int(user_move)<1 or int(user_move)>9:
+     print('you need to pick an integer from 1 to 9 and make sure that the game does not fall under 0')
+     user_move=int(input())
+   while count-int(user_move)<0:
+     print('The game cannot go below 0, try again!')
+     user_move=int(input())
+   
+   count=count-int(user_move)
+   print('OK we are now at',count)
+   if count==0:
+     print('you lose!')
+     sys.exit()
+ 
+  print('we reached 0 so game is over')
