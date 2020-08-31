@@ -1,0 +1,27 @@
+# une approche du paradoxe des anniversaires avec Python (on ignore les anées bissextiles)
+import random
+datesanniv=[]
+s=0
+
+
+print('combien de simulations?')
+exp=input()
+
+while int(exp) <100:
+  print('Saisir au moins 100 svp')
+  exp=input()
+
+for j in range (int(exp)+1) :
+
+ while True:
+   d=random.randint(1,365) # génération d'une date d'anniv aléatoire
+   if d not in datesanniv:
+     datesanniv += [d]  # si sa date d'anniv n'est pas déjà prise, il entre dans la salle et au suivant d'entrer
+   else:
+      s += len(datesanniv) # on consigne le rang d'apparition du premier entrant dont la date d'anniv est déjà prise
+      datesanniv=[] # on vide la salle
+      break # ce qui a pour effet d'incrémenter j de +1
+
+print('en moyenne sur ces expériences, à partir de',round(int(s)/int(exp),2),'personnes, on en a 2 ayant la même date d_anniversaire') 
+
+
