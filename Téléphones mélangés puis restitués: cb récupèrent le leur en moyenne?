@@ -1,0 +1,27 @@
+# on a x personnes, chacune avec son tél, on le leur retire puis on rend les téléphones aléatoirement. En moyenne, combien de personnes vont retrouver leur téléphone? Ce nombre dépend-il du nombre de personnes?
+
+print('faire le test avec combien de personnes?')
+a=input()
+
+ordre=[] #cela définit la liste de téls numérotés dans l'ordre de 1 à a
+desordre=[] # et la liste dans le désordre
+s=0 # s va compter le nombre de personnes retrouvant leur téléphone
+import random
+
+# on crée la liste de téls classés dans l'ordre
+for i in range (1,int(a)+1):
+ ordre += [i]     
+
+# on démarre la création de la liste dans le désordre 
+
+for i in range (0,int(a)):
+ z=random.randint(1,int(a)+1)
+ while z in desordre:
+   z=random.randint(1,int(a)+1)
+ desordre += [z]
+
+for k in range(0,int(a)):
+   if ordre[k] == desordre[k]:
+     s += 1
+
+print('Exactement',s,'personne(s) ont retrouvé leur téléphone')
