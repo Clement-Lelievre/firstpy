@@ -2,6 +2,9 @@
 
 print('Combien de pirates?')
 p=input()
+while int(p)<3:
+  print('p >= 3 please')
+  p=input()
 print('Et combien de lingots?')
 l=input()
 print('OK, voici la répartition optimale pour',p,'pirates et',l,'lingots:')
@@ -9,12 +12,13 @@ print('OK, voici la répartition optimale pour',p,'pirates et',l,'lingots:')
 r=[0]*int(p) # r comme répartition. C'est un vecteur ligne qui représente la répartition de lingots
 
 a=int
+m=int
 
 # comme la résolution de l'énigme, le code part de la fin: il remonte du dernier pirate au premier à s'exprimer
 
 
 
-r[int(p)-1]=l   # ceci correspond à l'étape 1 càd la répartition proposée par le dernier pirate.
+r[int(p)-1]=int(l)   # ceci correspond à l'étape 1 càd la répartition proposée par le dernier pirate.
 
 # il n'y a aucun changement à l'étape 2 puisque l'avant-dernier prisonnier verra sa proposition refusée (sauf s'il donne tout au dernier prisonnier...)
 
@@ -22,40 +26,30 @@ for i in range(3,int(p)+1):
 
  a = i//2                    # identification du nombre de pirates à soudoyer par le pirate n° i en partant de la fin = du nombre de lingots à donner
  
- r1=r[int(p)-(i-1):int(p)-1]         # on crée une liste raccourcie issue de r, qui contient les pirates qui vont voter pour le pirate en cours
- r1.sort()  # on classe par ordre de nombre de lingots (croissant, de gauche à droite)
- for k in range(1,int(len(r1)+1)):
-   if k <= int(a)+1:
-     r1[k-1] += 1
-   else:
-     r1[k-1] == 0
+ r1=r[int(p)-(i-1):int(p)]         # on crée une liste raccourcie issue de r, qui contient les pirates qui vont voter pour le pirate en cours
+ 
+ for z in range (int(p)-(i-1),int(p)):
+   r[z]=0            # on met à 0 provisoirement le nbre de lingots des pirates après celui qui parle 
+
+ for k in range (1,a+1):
+   m = int(min(r1))      
+   n = r1.index(m)    # identifie l'indice dans r1 du min (il peut y avoir plusieurs ex aequo)          
+   r[n+int(len(r))-int(len(r1))]= m+1    # on augmente d'un lingot
+   r1[n]=int(l)+1   # on le met égal à l+1 pour éviter d'avoir à le supprimer, et pour pouvoir continuer la boucle avec le min suivant
+
+ s=0
+ for j in range(int(p)-i,int(p)):
+   s += r[j] 
+
+ r[int(p)-i]= int(l) - s  # le pirate numéro i s'attribue tous les lingots restants après sa distribution de pots-de-vin
+
+t=0
+for q in range(1,int(p)):
+  t += r[q]
 
 
-
-
-
-
- r1[r1.index(min(r1))]=min(r1)+1 # on a identifié le (les?) minimum: on vient de soudoyer un pirate, en lui proposant un lingot de plus que la proposition du pirate suivant. 
- r=r[0:int(p)-i]+ r1
-    
- r[int(p)-i]= int(l) - int(a)  # le pirate numéro i s'attribue tous les lingots restants après sa distribution de pots-de-vin
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if r[0]+int(t) != int(l):
+  print('ERREUR: nombre de lingots déconne')  # vérif 
 
 
 print('La répartition optimale, qui sera acceptée à l_issue du 1er vote, est',r)
