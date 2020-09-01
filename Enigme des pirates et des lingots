@@ -1,0 +1,56 @@
+# ce code se propose de résoudre l'énigme des pirates et des lingots: p pirates se partagent l lingots. Pour cela ils se classent par ordre décroissant d'âge (pas d'ex aequo) et vont les uns après les autres, en commençant par le plus âgé, proposer une répartition des lingots. Si celle-ci est acceptée (majorité absolue requise), ils procèdent au partage voté, mais si elle est refusée, le pirate ayant fait la proposition devient hors-jeu et c'est au pirate suivant de faire sa proposition, et ainsi de suite. On suppose les pirates suffisamment rationnels et intelligents. Enfin chaque pirate peut voter pour sa propre répartition. Quelle est la répartition optimale?
+
+print('Combien de pirates?')
+p=input()
+print('Et combien de lingots?')
+l=input()
+print('OK, voici la répartition optimale pour',p,'pirates et',l,'lingots:')
+
+r=[] # r comme répartition. C'est un vecteur ligne qui représente la répartition de lingots
+
+a=int
+
+# comme la résolution de l'énigme, le code part de la fin: il remonte du dernier pirate au premier à s'exprimer
+
+for i in range (p-1):
+  r[i]=0
+
+r[p-1]=l   # ceci correspond à l'étape 1 càd la répartition proposée par le dernier pirate.
+
+# il n'y a aucun changement à l'étape 2 puisque l'avant-dernier prisonnier verra sa proposition refusée (sauf s'il donne tout au dernier prisonnier...)
+
+for i in range(3,p+1):          
+
+ a == i//2                    # identification du nombre de pirates à soudoyer par le pirate n° i en partant de la fin
+ for j in range(1,a+1):
+   r1=r[p-(i-1):p-1]         # on crée une liste raccourcie issue de r, qui contient les pirates qui vont voter pour le pirate en cours
+   r1[r1.index(min(r1))]=min(r1)+1 # on a identifié le (les?) minimum: on vient de soudoyer un pirate, en lui proposant un lingot de plus que la proposition du pirate suivant. 
+    r==r[0:p-i]+ r1
+    
+  r[p-i]= l - a  # le pirate numéro i s'attribue tous les lingots restants après sa distribution de pots-de-vin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print('La répartition optimale, qui sera acceptée à l_issue du 1er vote, est',r)
+
+ 
+ 
+
+
+
+
+
+
