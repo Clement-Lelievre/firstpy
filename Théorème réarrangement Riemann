@@ -1,0 +1,36 @@
+# Nous allons d'abord définir la série harmonique alternée, puis modifier sa somme en effectuant une permutation bien choisie de ses termes: théorème de réarrangement de Riemann
+
+print('Choisir la somme partielle à afficher: jusqu_à n=?')
+n=int(input())
+while n < 100:
+  print('au moins 100 termes please')
+  n=int(input())
+s=0
+for i in range(n+1):
+ s += ((-1)**i)/(i+1)
+
+print(s)    # converge vers ln(2)
+
+print('Choisir la nouvelle limite souhaitée: l = ? (l pas plus que 10 sinon ça rame trop')
+l=int(input())
+while l<0:
+  print('prendre l > 0 please (c_est symétrique si l<0)')
+  l=int(input())
+
+s=0
+i=0
+j=0
+
+for k in range(100):  # en théorie k = + infini mais il faut bien s'arrêter
+ if l>0:
+   c=0
+   while s < l:
+     s += ((-1)**(2*i))/(2*i+1)          # on commence par sommer les termes positifs en s'arrêtant dès qu'on dépasse l. Aux k suivants, on reprend là où on s'était arrêtés.
+     i += 1
+     c += 1
+   print('Le "paquet" numéro',k+1,'de termes positifs en contient',c)   #c'est la ligne la plus intéressante du code --> MONTRE BIEN LA CONVERGENCE RAPIDE DE LA TAILLE DES PAQUETS!
+   
+   s += ((-1)**(2*j+1))/(2*j+2)          # on ajoute le 1er terme négatif, qui fait repasser notre somme sous l, puis le deuxième etc.
+   j += 1
+     
+print(s)
