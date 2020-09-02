@@ -1,0 +1,33 @@
+# coding:utf-8
+import random
+import time
+import string
+
+g=0
+caracposs= string.ascii_lowercase + string.ascii_uppercase + string.digits + '!?:;*%ù$£^¨&é")(-è_çà=~#}{[|`\^@\''
+
+texte =str(input('Entrez un mot de votre choix\n'))
+test_courant=''
+for c in range(len(texte)):
+ test_courant += random.choice(caracposs) 
+test_suivant=''
+
+termine = False
+while termine ==False:
+ print(test_courant,'\n')
+ test_suivant=''
+ #time.sleep(0.1)
+ for i in range(len(texte)):
+   if test_courant[i] != texte[i]:
+     test_suivant += random.choice(caracposs)
+   else:
+     g += 1
+     test_suivant += texte[i]
+ if str(test_courant)==str(texte):
+   termine = True
+ test_courant = test_suivant
+
+print('Texte trouvé! Il a fallu',g,'itérations.')      
+     
+  
+  
