@@ -1,0 +1,29 @@
+import random
+c=[0]*8
+d=[0]*8
+for k in range(8):
+   a=[]
+   for i in range(8):
+     a += [random.randint(0,9)]
+   c[k] = a
+
+
+for k in range(8):
+  a=[0]*8
+  for i in range(8):
+   a[i] += c[7-i][k]
+  d[k]=a
+  
+print(c)
+print('et voici d:\n')
+print(d)
+
+
+
+for k in range(8):
+ a=''
+ for i in range(8):
+   a += str(d[k][i])
+ print(a)
+  
+
