@@ -22840,6 +22840,42 @@ for k in range(len(list1)):
    for i in range(len(list1[k])):
      if len(list1[k][i])==max:
        list2 += [e[k]]
-
+print('\n')
 print('Le(s) mot(s) ayant le plus de consonnes consécutives en a/ont',max,':',list2)
 
+# on va sortir les anagrammes présents dans ce dictionnaire
+
+print('\n')
+ana=[[]]
+for i in range(len(e)-1):
+ ana += [[]]
+
+
+for k in range(len(e)):
+ for i in range(len(e[k])):
+   ana[k] += e[k][i]
+
+for k in range(len(ana)):
+  ana[k].sort()
+  
+
+x=0
+list_ana=[]
+longest_ana=[]
+for k in range(len(ana)):
+  for i in range(len(ana)):
+     if i != k and ana[k] == ana[i] and e[k] != e[i] and len(e[k])>10:
+       print('Les mots',e[k],'et',e[i],'sont des anagrammes de plus de 10 lettres.')
+       list_ana += [e[k],e[i]]
+       if len(e[k])>x:
+         x = len(e[k])
+           
+
+#for k in range(len(list_ana)):
+ # if len(list_ana[k][0])==x:
+  #  longest_ana += [list_ana[k][0],list_ana[k][1]]
+
+
+
+print('\n')
+print('Les anagrammes les plus longs de ce dictionnaire ont',x,'lettres','et sont:',print(longest_ana))
