@@ -2571,7 +2571,7 @@ Bell
 belle
 belle-fille
 belles
-belle-sœur
+belle-soeur
 belvédère
 ben
 bénédiction
@@ -2771,7 +2771,7 @@ blâme
 blâmer
 blanc
 blanc de chaux
-blanc d'œuf
+blanc d'oeuf
 Blanchard
 blanche
 blanches
@@ -2841,7 +2841,7 @@ bocage
 bocal
 bock
 Boeing
-bœuf
+boeuf
 Bogart
 Bogota
 boire
@@ -2868,7 +2868,7 @@ bombardiers
 bombe
 bombes
 bon
-bon cœur
+bon coeur
 bon grain
 bonace
 Bonaparte
@@ -3993,7 +3993,7 @@ chauve
 chauvinisme
 chaux
 chef
-chef-d'œuvre
+chef-d'oeuvre
 chefs
 cheikh
 chelem
@@ -4101,7 +4101,7 @@ chlore
 choc
 chocolat
 chocs
-chœur
+choeur
 choir
 choisi
 choisie
@@ -4381,7 +4381,7 @@ codes
 coefficient
 coéquipier
 coercition
-cœur
+coeur
 coexistence
 coexistent
 coffre
@@ -5068,7 +5068,7 @@ consistant
 consiste
 consisté
 consisterait
-consœur
+consoeur
 consolation
 consoler
 consolidation
@@ -5257,7 +5257,7 @@ contre
 contrebalancer
 contrebande
 contrecarrer
-contrecœur
+contrecoeur
 contrecoup
 contredire
 contredit
@@ -5502,7 +5502,7 @@ coup de griffe
 coup de pied
 coup de vent
 coup d'Etat
-coup d'œil
+coup d'oeil
 coup monté
 coupable
 coupables
@@ -5699,7 +5699,7 @@ creux
 crevasse
 crevasser
 crevé
-crève-cœur
+crève-coeur
 crever
 cri
 criant
@@ -6700,7 +6700,7 @@ désireux
 désirs
 désobéissance
 désobstruer
-désœuvré
+désoeuvré
 désolation
 désolé
 désoler
@@ -7606,9 +7606,9 @@ ecclésiastique
 éclore
 écluse
 écluser
-écœurant
-écœurement
-écœurer
+écoeurant
+écoeurement
+écoeurer
 école
 écoles
 écolier
@@ -9614,7 +9614,7 @@ fluidité
 flux
 flux de
 Foch
-fœtus
+foetus
 foi
 foie
 foin
@@ -10965,7 +10965,7 @@ horreurs
 horrible
 horripiler
 hors
-hors d'œuvre
+hors d'oeuvre
 horst
 hospitalier
 hospitalière
@@ -13418,8 +13418,8 @@ Mann
 manne
 mannequin
 mannequins
-manœuvre
-manœuvres
+manoeuvre
+manoeuvres
 manouche
 manquaient
 manquait
@@ -14161,9 +14161,9 @@ modifier
 modifiés
 modo
 module
-mœlle
+moelle
 moelleux
-mœurs
+moeurs
 Mogadiscio
 Mohamed
 Mohammed
@@ -14740,8 +14740,8 @@ nocturne
 nocturnes
 Noël
 Noëlle
-nœud
-nœuds
+noeud
+noeuds
 noir
 noire
 noires
@@ -15031,14 +15031,14 @@ odeurs
 Odile
 odorant
 odorat
-œil
-œillère
-œsophage
-œuf
-œufs
-œuvre
-œuvrer
-œuvres
+oeil
+oeillère
+oesophage
+oeuf
+oeufs
+oeuvre
+oeuvrer
+oeuvres
 offensant
 offense
 offenser
@@ -17776,8 +17776,8 @@ rampante
 rampe
 ramper
 rancard
-rancœur
-rancœurs
+rancoeur
+rancoeurs
 rançon
 rancunier
 randonnée
@@ -20082,8 +20082,8 @@ sociologues
 socio-politique
 socle
 sodium
-sœur
-sœurs
+soeur
+soeurs
 Soffite
 Soffites
 Sofia
@@ -22511,8 +22511,8 @@ vocifération
 vociférations
 vociférer
 vodka
-vœu
-vœux
+voeu
+voeux
 Vogel
 vogue
 voguer
@@ -22747,7 +22747,15 @@ zygote'''
 
 d=c.split('\n')
 
-e=b+d
+e=b+d  
+
+# on met tous les mots en lower case
+
+for k in range(len(e)):
+  a=e[k].lower()
+  e[k]=a
+
+
 
 # on classe les mots dans des sacs selon leur 1ère lettre
 
@@ -22761,6 +22769,16 @@ for k in range(len(lettres_alphabet)):
      a += 1
      mots_alphabet[k] += [e[i]]
  print('Il y a',a,'mots débutant par',lettres_alphabet[k])
+print('\n')
+print('Il y a au total',len(e),'mots dans ce dictionnaire.')
+print('\n')
+
+lettres=0
+for k in range(len(e)):
+  lettres += len(e[k])
+
+print('Il y a au total',lettres,'lettres dans ce dictionnaire.')
+
 
 # on va imprimer les mots dont la 1ère lettre est la moins représentée
 
@@ -22771,14 +22789,50 @@ for k in range(len(mots_alphabet)):
    t = len(mots_alphabet[k])
    a=k
 
-
+print('\n')
 print('La lettre la moins représentée est',lettres_alphabet[a],'avec',t,'mots, que voici:')
 print(mots_alphabet[a])
 
+
+# mot le plus long
+
+long=0
+rang_long=0
+for k in range(len(e)):
+  if len(e[k])>long:
+    long =len(e[k])
+    rang_long=k
+
+print('\n')
+print('Le mot le plus long de ce dictionnaire est',e[rang_long],'avec',long,'lettres.')
 # on va sortir le(s) mot(s) contenant le plus de consonnes consécutives et leur nombre  
 
+voyelles=['a','e','i','o','u','y','é','ê','è','à','ï','î','ù','â','ô','-',' ',"'",'ü']
+b=''
+l=[]
 
+for k in range(len(e)):
+ for i in range(len(e[k])):
+   if e[k][i] in voyelles: 
+     b += 'v'
+   else:
+     b += 'c'
+ l += [b]
+ b=''
 
+list1=[]
+for k in range(len(l)):
+  split = l[k].split('v')
+  list1 += [split]
+  split =''
 
+max=0
+indice=0
+for k in range(len(list1)):
+   for i in range(len(list1[k])):
+     if len(list1[k][i])>max:
+       max = len(list1[k][i])
+       indice = k
 
+print('Le mot ayant le plus de consonnes consécutives est',e[indice],'avec',max,'consonnes consécutives.')
 
