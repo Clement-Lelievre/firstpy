@@ -1,3 +1,4 @@
+
 # Dans cet exercice, on se propose de partir d'un multiline string contenant le dictionnaire français, d'en faire une liste, puis d'en exposer quelques propriétés. Voir à partir de la ligne 22752. 
 
 
@@ -22807,7 +22808,7 @@ print('\n')
 print('Le mot le plus long de ce dictionnaire est',e[rang_long],'avec',long,'lettres.')
 # on va sortir le(s) mot(s) contenant le plus de consonnes consécutives et leur nombre  
 
-voyelles=['a','e','i','o','u','y','é','ê','è','à','ï','î','ù','â','ô','-',' ',"'",'ü']
+voyelles=['a','e','i','o','u','y','é','ê','è','à','ï','î','ù','â','ô','-',' ',"'",'ü']   # en plus des voyelles strico sensu, on met dans cette liste tous les caractères qu'on ne veut pas pour le calcul de la plus longue séquence de consonnes consécutives (exemple : '-')
 b=''
 l=[]
 
@@ -22834,5 +22835,11 @@ for k in range(len(list1)):
        max = len(list1[k][i])
        indice = k
 
-print('Le mot ayant le plus de consonnes consécutives est',e[indice],'avec',max,'consonnes consécutives.')
+list2=[]
+for k in range(len(list1)):
+   for i in range(len(list1[k])):
+     if len(list1[k][i])==max:
+       list2 += [e[k]]
+
+print('Le(s) mot(s) ayant le plus de consonnes consécutives en a/ont',max,':',list2)
 
