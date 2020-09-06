@@ -22864,7 +22864,7 @@ list_ana=[]
 longest_ana=[]
 for k in range(len(ana)):
   for i in range(len(ana)):
-     if i != k and ana[k] == ana[i] and e[k] != e[i] and len(e[k])>10:
+     if i != k and ana[k] == ana[i] and e[k] != e[i] and len(e[k])>10: #" le 3e argument c'est pcq dans le dico il y a des mots doublés comme Américain/américain"
        print('Les mots',e[k],'et',e[i],'sont des anagrammes de plus de 10 lettres.')
        list_ana += [e[k],e[i]]
        if len(e[k])>x:
