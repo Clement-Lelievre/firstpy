@@ -22893,13 +22893,14 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
  print('A mon tour!:',guessPC[-1].upper())
  print("Merci de m'indiquer combien de lettres en commun avec votre mot ce mot a, ou d'écrire G si j'ai gagné")
  answer=input()
- while int(answer) not in range(0,m+1):
-     print("Etes-vous sûr de votre réponse?")
-     answer=input()
  if answer.upper() == 'G':
    print("Victoire! J'ai gagné en",i+1,'coup(s). Merci pour la partie!')
    quit()
- elif int(answer) == 0:     # on réduit notre liste de mots candidats avec cette boucle elif
+ while int(answer) not in range(0,m+1):
+     print("Etes-vous sûr de votre réponse?")
+     answer=input()
+ 
+ if int(answer) == 0:     # on réduit notre liste de mots candidats avec cette boucle elif
    print("OK, à vous!\n")
    
    for l in range(len(motscandidats)):
@@ -22946,15 +22947,15 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
    print('Je suis désolé mais je suis à court de mots. Votre mot est trop recherché pour moi. Disons partie nulle?')
    quit()
  if i>0 and i % 5 ==0 :
-   print('Cette partie est serrée, vous ne trouvez pas?\n') 
- if i>0 and i % 2 ==0 :
+   print('Cette partie est serrée, vous ne trouvez pas? A vous!\n') 
+ if i>0 and i % 4 ==0 :
    print('Langue au chat? (O ou N)')
    langue=input().upper()
    while langue != 'O' and langue != 'N':
      print('Tapez O ou N pour indiquer si vous donnez votre langue au chat.')
      langue=input().upper()
    if str(langue) =='O':
-       print('Mon mot secret était',motPC.upper(),"J'ai gagné!")
+       print('Mon mot était',motPC.upper(),"J'ai gagné!")
        quit()
 
     
