@@ -22762,10 +22762,29 @@ import random
 import sys
 import itertools
 
-print('Bienvenue dans ce jeu! Commencez par choisir la longueur des mots avec lesquels nous allons jouer! (Taper chiffre)')
-m=int(input())
+print('Bienvenue dans ce jeu! Commencez par choisir la longueur des mots avec lesquels nous allons jouer!\n(Tapez chiffre)')
+
+a = 0
+while a==0:
+ try:
+   m=int(input())
+   if m>0:
+     a=1
+ except:
+   print('Taper la longueur de mots souhaitée svp.')
+   
+ 
+
 while int(m)<3 or int(m)>9:
   m=input('Tapez un chiffre entre 3 et 9 \n')
+  m_is_integer = False
+  while False:
+   try:
+     m=input()
+     if m>2 or m<10:
+       m_is_integer = True
+   except ValueError:
+     print('Taper la longueur de mots souhaitée svp.')
 
 
 # on va créer le sous-ensemble du dico contenant les mots de longueur m, qui va être notre sac dans lequel puiser des mots 
@@ -22775,10 +22794,13 @@ for i in range(len(e)):
   if len(e[i]) == m:
     mots_len_m += [e[i]]
 
+
 motscandidats=[]
 for i in range(len(e)):
  if len(e[i]) == m:
    motscandidats += [e[i]]
+
+motscandidatsnonvides = motscandidats
 
 guessPC = []
  
@@ -22786,7 +22808,7 @@ time.sleep(1)
 
 print("Je vois... C'est bon, j'ai choisi mon mot! \n")
 print("Essayons de deviner le mot adverse en proposant des mots de même longueur à tour de rôle; l'adversaire doit répondre par le nombre de lettres en commun \n")
-time.sleep(4)
+time.sleep(3)
 print('Ne choisissez pas un mot trop rare SVP: je suis un ordinateur, mon vocabulaire est limité \n')
 print("A vous l'honneur. Que le meilleur gagne!")
 
@@ -22802,18 +22824,20 @@ lettresPC=[]
 for i in range(len(motPC)):
   lettresPC += motPC[i]
 
+
+
 # MAIN GAME LOOP
    # TOUR DE L'ADVERSAIRE
 
+motsguess=[]
 for i in range(len(motscandidats)):      # c'est la boucle principle les tours du jeu
  
- motsguess=[]
 
  guess= str(input()).lower()
  while len(guess) != m: 
    print('Merci de ne proposer que des mots de longueur',m)
    guess=str(input()).lower()
- while guess in motsguess: 
+ while guess.lower() in motsguess: 
    print("Vous m'avez déjà proposé ce mot: proposez-en un autre.")
    guess=str(input()).lower()
  while guess not in mots_len_m:
@@ -22821,6 +22845,10 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
    guess=str(input()).lower()
    
  motsguess += guess
+ if i>0 and guess.upper() == guessPC[-1].upper():  
+   print('Copieur!\n')
+ elif i>0 and guess.lower() == str(guessPC[-1]).lower():
+   print('Copieur!\n')
 
  # on décompose en lettres le mot adverse
 
@@ -22834,11 +22862,11 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
  for k in range(len(lettresguess)):
    if lettresguess[k] in lettresPC:
      lettersin += 1
-
+ 
 
  if guess == motPC:
    print('Félicitations! Vous avez deviné mon mot et remporté la partie, en',i+1,'tentatives.')
-   sys.exit
+   quit()
  elif lettersin ==1:
    time.sleep(1)
    print('Ce mot a',lettersin,'lettre commune au mien.\n')
@@ -22853,67 +22881,85 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
 
   # TOUR DU PC
  
-
- 
- a= motscandidats[random.randint(0,len(motscandidats))]
- while a in guessPC:
-   a= motscandidats[random.randint(0,len(motscandidats))]
- guessPC += [[a]]
  
  
- print('A mon tour!:',str(guessPC[-1]).upper())
+ a= motscandidatsnonvides[random.randint(0,len(motscandidatsnonvides)-1)]
+ while a in guessPC :
+   a= motscandidatsnonvides[random.randint(0,len(motscandidatsnonvides)-1)]
+ guessPC += [a]
+ 
+ 
+ print('A mon tour!:',guessPC[-1].upper())
  print("Merci de m'indiquer combien de lettres en commun avec votre mot ce mot a, ou d'écrire G si j'ai gagné")
  answer=input()
+ while int(answer) not in range(0,m+1):
+     print("Etes-vous sûr de votre réponse?")
+     answer=input()
  if answer.upper() == 'G':
    print("Victoire! J'ai gagné en",i+1,'coup(s). Merci pour la partie!')
-   sys.exit
+   quit()
  elif int(answer) == 0:     # on réduit notre liste de mots candidats avec cette boucle elif
    print("OK, à vous!\n")
+   
    for l in range(len(motscandidats)):
      for p in range(m):
        if motscandidats[l][p] in guessPC[-1]:
-         motscandidats.remove(motscandidats[l])
+         motscandidats[l] = ' '*m
+         break
+   
+   for k in range(len(motscandidatsnonvides)):
+     for h in range(len(motscandidatsnonvides)):
+       if motscandidatsnonvides[h] == ' '*m:
+         motscandidatsnonvides.remove(motscandidatsnonvides[h])
+         break
+
  elif int(answer) < m:
-   print('Alright, à vous!\n')
+   print('Alright, à vous!\n')   # ici j'ai besoin de le rendre plus intelligent
  elif int(answer)==m:
-   print("Hmm, je vois, je chauffe n'est-ce-pas?\n")
-   for l in range(len(motscandidats)):
+   v=''
+   for l in range(len(motscandidats)):      # il faut que chaque lettre des mots candidats soit dans le précédent mot
      for p in range(m):
        if motscandidats[l][p] not in guessPC[-1]:
-         motscandidats.remove(motscandidats[l])
-   for l in range(len(motscandidats)):
+         motscandidats[l] = v
+         break
+   for l in range(len(motscandidats)):   # il faut aussi que chaque lettre du précédent mot soit dans chaque mot candidat de la liste
      for p in range(m):
-       if guessPC[-1][p] in motscandidats[l]:
-         motscandidats.remove(motscandidats[l])   
- else:
-   while int(answer) not in range(0,m) or type(answer) != int:
-     print("Etes-vous sûr de votre réponse?")
-     answer=input()
-
- motscandidats.remove(a)  # supprime de la liste des mots candidats le mot que le PC propose à ce tour
+       if guessPC[-1][p] not in motscandidats[l]:
+         motscandidats[l] = v
+         break
+   
+   
+   for k in range(len(motscandidatsnonvides)):
+     for j in range(len(motscandidatsnonvides)):
+       if len(motscandidatsnonvides[j]) == 0:
+         motscandidatsnonvides.remove(motscandidatsnonvides[j])
+         break
+   if len(motscandidatsnonvides)==1:
+     print("Le souci, c'est que",guessPC[-1].upper(),"était mon dernier mot en stock avec ces",m,'lettres, donc je ne peux plus jouer! Disons partie nulle.')
+     quit()  
+   print("Hmm, je vois, je chauffe n'est-ce-pas?\n")
+   print('A vous!')
+      
+ 
+ if(len(motscandidatsnonvides))==0:
+   print('Je suis désolé mais je suis à court de mots. Votre mot est trop recherché pour moi. Disons partie nulle?')
+   quit()
  if i>0 and i % 5 ==0 :
-   print('Cette partie est serrée, vous ne trouvez pas?') 
+   print('Cette partie est serrée, vous ne trouvez pas?\n') 
+ if i>0 and i % 6 ==0 :
+   print('Langue au chat? (O ou N)')
+   langue=input().upper()
+   while langue != 'O' and langue != 'N':
+     print('Tapez O ou N pour indiquer si vous donnez votre langue au chat.')
+     langue=input().upper()
+     if langue=='O':
+       print('Mon mot secret était',motPC)
+       quit()
+
     
 
 
    
-print("J'ai épuisé les mots de mon vocabulaire qui font exactement',m,'lettres: faisons partie nulle.")
-sys.exit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
