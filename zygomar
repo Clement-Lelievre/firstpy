@@ -22837,14 +22837,15 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
  while len(guess) != m: 
    print('Merci de ne proposer que des mots de longueur',m)
    guess=str(input()).lower()
- while guess.lower() in motsguess: 
+ while guess in motsguess: 
    print("Vous m'avez déjà proposé ce mot: proposez-en un autre.")
    guess=str(input()).lower()
  while guess not in mots_len_m:
    print("Ce mot n'est pas dans mon vocabulaire, désolé! Proposez-en un autre.")
    guess=str(input()).lower()
    
- motsguess += guess
+ motsguess += [guess]
+
  if i>0 and guess.upper() == guessPC[-1].upper():  
    print('Copieur!\n')
  elif i>0 and guess.lower() == str(guessPC[-1]).lower():
@@ -22946,14 +22947,14 @@ for i in range(len(motscandidats)):      # c'est la boucle principle les tours d
    quit()
  if i>0 and i % 5 ==0 :
    print('Cette partie est serrée, vous ne trouvez pas?\n') 
- if i>0 and i % 6 ==0 :
+ if i>0 and i % 2 ==0 :
    print('Langue au chat? (O ou N)')
    langue=input().upper()
    while langue != 'O' and langue != 'N':
      print('Tapez O ou N pour indiquer si vous donnez votre langue au chat.')
      langue=input().upper()
-     if langue=='O':
-       print('Mon mot secret était',motPC)
+   if str(langue) =='O':
+       print('Mon mot secret était',motPC.upper(),"J'ai gagné!")
        quit()
 
     
