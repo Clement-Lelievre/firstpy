@@ -1,0 +1,15 @@
+a=100
+k=0
+c=0
+
+while True:
+ while a - 2**(k+1) >=0:
+   k += 1
+ c += 10**k
+ a -= 2**k
+ k=0
+ if a == 0:
+   break
+
+print(c)
+
