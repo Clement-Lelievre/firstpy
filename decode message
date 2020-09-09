@@ -1,0 +1,12 @@
+# Chaque caractère du message codé est pris dans l'alphabet inversé. exemple : z est a. On suppose que message ne contient que des espaces et des minuscules.
+
+def decode(message):
+    a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    clear=''
+    for i in range(len(message)):
+        if message[i] in a:
+            clear += a[25-a.index(message[i])]
+        else:
+            clear += ' '
+                  
+    return clear
