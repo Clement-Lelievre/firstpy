@@ -1,0 +1,39 @@
+'''The new "Avengers" movie has just been released! There are a lot of people at the cinema box office standing in a huge line. Each of them has a single 100, 50 or 25 dollar bill. An "Avengers" ticket costs 25 dollars.
+
+Vasya is currently working as a clerk. He wants to sell a ticket to every single person in this line.
+
+Can Vasya sell a ticket to every person and give change if he initially has no money and sells the tickets strictly in the order people queue?
+
+Return YES, if Vasya can sell a ticket to every person and give change with the bills he has at hand at that moment. Otherwise return NO.'''
+
+def tickets(people):
+  import random
+  money=[25,50,100]
+  bills =[0,0,0]   # stocke le nbre de billets de chaque montant à la billetterie
+  for i in range(len(people)):
+    bills[money.index(people[i])] += 1  # on reçoit le billet du client
+    if people[i] == 50:
+      bills[0] -= 1
+    if people[i] == 100:
+      if bills[1]>0:
+        bills[1] -= 1
+        bills[0] -= 1
+      else:
+        bills[0] -= 3            
+    if bills[0]<0 or bills[1]<0 or bills[2]<0:
+      return print("NO because cash is negative on client #",i+1)
+      quit()
+            
+  return print("YES")
+
+import random
+money=[25,50,100]
+people=[]
+for i in range(1,100):
+  people += [money[random.randint(0,2)]]
+
+print(people)  
+
+
+tickets(people)
+    
