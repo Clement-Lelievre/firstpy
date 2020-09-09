@@ -6,9 +6,7 @@ def billets(n):
  for i in range(1,len(deno)+1):
    repart += [n // deno[-i]]
    n -= (n // deno[-i])*deno[-i]
- repartb=[]
- for i in range(len(repart)):
-   repartb += [repart[len(repart)-(i+1)]]
- return print(repartb)
+ repart.reverse()
+ return print(repart)
 
 billets(6537)
