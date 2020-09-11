@@ -1,0 +1,24 @@
+# on veut approcher, par simulation Monte-Carlo, la valeur de pi via l'aire d'un cercle de diamètre 1 et de centre le centre d'un carré de côté 1
+# équation du cercle: x² + y² = 1
+
+import random
+import math
+e=int(input("Choisir l'erreur près: 1/e, taper e \n"))
+c=0
+n=0
+x=random.random()
+y=random.random()
+if y <= (1-x**2)**(1/2):
+ c += 1
+n += 1
+while abs(4*c/n - math.pi) > 1/e :  # on fait la boucle au 2e tour car sinon on a un message d'erreur de DivisionbyZero
+ x=random.random()
+ y=random.random()
+ if y <= (1-x**2)**(1/2):
+   c += 1
+ n += 1
+
+print("La valeur estimée de pi après",n,"simulations est:",4*c/n,"à",1/e,"près.")   
+
+
+
